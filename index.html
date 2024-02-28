@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phone Number Chat Generator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+    }
+    .input-box {
+        width: 45%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .output-box {
+        width: 45%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: left;
+    }
+    table {
+        width: 100%;
+    }
+    table td {
+        padding: 5px;
+        border-bottom: 1px solid #eee;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="input-box">
+        <h2>Enter Phone Numbers</h2>
+        <textarea id="phoneNumbersInput" placeholder="Enter phone numbers here (one per line)" style="width: 100%; height: 150px;"></textarea>
+        <button onclick="generateLinks()">Generate Links</button>
+    </div>
+    <div class="output-box">
+        <h2>Chat Buttons</h2>
+        <div id="output"></div>
+        <button id="chatButton" style="display:none;">Chat</button>
+    </div>
+</div>
+
+<script>
+function generateLinks() {
+    var input = document.getElementById("phoneNumbersInput").value.trim();
+    var numbers = input.split('\n');
+    var output = document.getElementById("output");
+    output.innerHTML = '';
+
+    numbers.forEach(function(number) {
+        if (number.trim() !== '') {
+            var link = document.createElement("a");
+            link.href = "https://wa.me/+91" + number.trim();
+            link.textContent = "Chat with " + number.trim();
+            link.target = "_blank";
+            output.appendChild(link);
+            output.appendChild(document.createElement("br"));
+        }
+    });
+
+    document.getElementById("chatButton").style.display = "block";
+}
+
+document.getElementById("chatButton").addEventListener("click", function() {
+    var links = document.querySelectorAll("#output a");
+    links.forEach(function(link) {
+        link.click();
+    });
+});
+</script>
+
+</body>
+</html>
